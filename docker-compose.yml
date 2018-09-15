@@ -4,7 +4,7 @@ services:
   dns:
     image: andyshinn/dnsmasq:2.78
     volumes:
-      - ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+      - ${PATH_TO_CONFIGS}/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
     cap_add:
       - NET_ADMIN
     ports:
@@ -21,7 +21,7 @@ services:
       - php
     volumes:
       - ${PATH_TO_SITES}:/var/www
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${PATH_TO_CONFIGS}/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - php
       - dns
@@ -34,7 +34,7 @@ services:
     working_dir: /var/www
     volumes:
       - ${PATH_TO_SITES}:/var/www
-      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ${PATH_TO_CONFIGS}/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - mysql
 
