@@ -1,57 +1,63 @@
 version: '2'
 
 services:
-  dns:
-    image: andyshinn/dnsmasq:2.78
-    volumes:
-      - ${PATH_TO_CONFIGS}/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - 172.17.0.1:53:53/tcp
-      - 172.17.0.1:53:53/udp
-
   nginx:
-    image: nginx:1.13
+    image: aboldyrev/nginx:1.13
+    container_name: nginx
     ports:
-      - 80:80
-      - 443:443
+      - ${NGINX_PORT_HTTP}:80
+      - ${NGINX_PORT_HTTPS}:443
     working_dir: /var/www
     links:
       - php
     volumes:
-      - ${PATH_TO_SITES}:/var/www
-      - ${PATH_TO_CONFIGS}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./:/var/www
+      - ${NGINX_LOGS_PATH}:/var/log/nginx
     depends_on:
       - php
-      - dns
 
   php:
-    build:
-      ./php
+    image: aboldyrev/php:7.1-fpm
+    container_name: php7.1
     ports:
       - 9000:9000
     working_dir: /var/www
+    links:
+      - mysql
     volumes:
-      - ${PATH_TO_SITES}:/var/www
-      - ${PATH_TO_CONFIGS}/php/php.ini:/usr/local/etc/php/php.ini
+      - ./:/var/www
     depends_on:
       - mysql
 
+  node:
+    image: aboldyrev/node:10.16.1-alpine
+    container_name: node
+    ports:
+      - 8888:8888
+    working_dir: /app
+    volumes:
+      - ./:/app
+
   mysql:
     image: mariadb:10.3
+    container_name: mariadb
+    restart: always
+    ports:
+      - 3306:3306
     volumes:
       - ${MYSQL_DB_PATH}:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: password
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:5.0.4
+    container_name: phpmyadmin
+    restart: always
     links:
-      - mysql:db
+      - mysql
     ports:
-      - ${PHP_MY_ADMIN_PORT}:80
+      - 8080:80
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PMA_HOST: mysql
     depends_on:
       - mysql

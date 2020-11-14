@@ -1,2 +1,6 @@
 .idea
 .env
+
+logs/
+nginx/certs/*
+!nginx/certs/.gitkeep
