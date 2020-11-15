@@ -20,8 +20,8 @@
  - composer71 — ``alias composer71="docker exec -it php7.1 composer"``
  - mysql — ``alias mysql="docker exec -it mariadb mysql"``
  - mysqldump — ``alias mysqldump="docker exec -it mariadb mysqldump"``
- - npm10 — ``alias npm="docker run -it aboldyrev/node:10.16.1-alpine npm"``
- - yarn10 — ``alias yarn="docker run -it aboldyrev/node:10.16.1-alpine yarn"``
+ - npm10 — ``alias npm="docker run -it aboldyrev/node:10.16.1 npm"``
+ - yarn10 — ``alias yarn="docker run -it aboldyrev/node:10.16.1 yarn"``
  
 Все нужные алиасы необходимо добавить в файл в домашней директории:
  - Linux — .bashrc или .zsh
