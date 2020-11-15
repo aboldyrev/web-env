@@ -16,13 +16,15 @@
  
  
 Список непоходимых алиасов:
- - php — ``alias php71="docker exec -it php7.1 php"`` (команда будет не php, а php71)
- - composer — ``alias composer="docker exec -it php7.1 composer"``
+ - php71 — ``alias php71="docker exec -it php7.1 php"``
+ - composer71 — ``alias composer71="docker exec -it php7.1 composer"``
  - mysql — ``alias mysql="docker exec -it mariadb mysql"``
  - mysqldump — ``alias mysqldump="docker exec -it mariadb mysqldump"``
- - npm — ``alias npm="docker run -it node npm"``
- - yarn — ``alias yarn="docker run node yarn"``
+ - npm10 — ``alias npm="docker run -it aboldyrev/node:10.16.1-alpine npm"``
+ - yarn10 — ``alias yarn="docker run -it aboldyrev/node:10.16.1-alpine yarn"``
  
-Все необходимые алиасы необходимо добавить в файл в домашней директории:
+Все нужные алиасы необходимо добавить в файл в домашней директории:
  - Linux — .bashrc или .zsh
  - MacOS — .bash_profile или .zsh
+ 
+При необходимости перезагрузите терминал.

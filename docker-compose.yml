@@ -29,15 +29,6 @@ services:
     depends_on:
       - mysql
 
-  node:
-    image: aboldyrev/node:10.16.1-alpine
-    container_name: node
-    ports:
-      - 8888:8888
-    working_dir: /app
-    volumes:
-      - ./:/app
-
   mysql:
     image: mariadb:10.3
     container_name: mariadb
