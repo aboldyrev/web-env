@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y libmagickwand-dev --no-install-recommends
 RUN pecl install -f imagick && docker-php-ext-enable imagick
+RUN docker-php-ext-install mysqli pdo pdo_mysql intl
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
  	php composer-setup.php && \
  	php -r "unlink('composer-setup.php');" && \
